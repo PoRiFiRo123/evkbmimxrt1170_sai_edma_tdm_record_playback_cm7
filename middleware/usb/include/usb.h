@@ -124,6 +124,44 @@ typedef enum _usb_controller_type
     kUSB_ControllerTypeDwc3 = 7U,       /*!< DWC3 */
 } usb_controller_type_t;
 
+/*! @brief USB Setup Packet Structure */
+typedef struct _usb_setup_struct
+{
+    uint8_t bmRequestType;  /*!< Request type */
+    uint8_t bRequest;       /*!< Specific request */
+    uint16_t wValue;        /*!< Value */
+    uint16_t wIndex;        /*!< Index */
+    uint16_t wLength;       /*!< Length of data */
+} usb_setup_struct_t;
+
+/*! @brief USB Device String Descriptor */
+typedef struct _usb_language
+{
+    uint8_t **string;       /*!< String descriptor array */
+    uint32_t *length;       /*!< String length array */
+    uint16_t languageId;    /*!< Language ID */
+} usb_language_t;
+
+/*! @brief USB Device Language List */
+typedef struct _usb_language_list
+{
+    uint8_t *languageString;     /*!< Language ID string descriptor */
+    uint32_t stringLength;       /*!< Language string length */
+    usb_language_t *languageList; /*!< Language list */
+    uint8_t languageCount;       /*!< Language count */
+} usb_language_list_t;
+
+/*! @brief USB Device Struct */
+typedef struct _usb_device_struct
+{
+    usb_device_handle handle;           /*!< Device handle */
+    usb_device_handle controllerHandle; /*!< Controller handle */
+    uint8_t controllerId;               /*!< Controller ID */
+    uint8_t deviceAddress;              /*!< Device address */
+    uint8_t state;                      /*!< Device state */
+    uint8_t *setupBuffer;               /*!< Setup packet buffer */
+} usb_device_struct_t;
+
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -137,6 +175,42 @@ extern "C" {
  *
  * @param version Pointer to a version structure.
  */
+void USB_GetVersion(usb_version_t *version);
+
+#if defined(__cplusplus)
+}
+#endif
+
+/*! @}*/
+
+#endif /* __USB_H__ */
+
+/*! @brief USB Device Control Type */
+
+/*! @brief USB Device Control Type */
+typedef enum _usb_device_control_type
+{
+    kUSB_DeviceControlRun = 0U,
+    kUSB_DeviceControlStop,
+    kUSB_DeviceControlEndpointInit,
+    kUSB_DeviceControlEndpointDeinit,
+    kUSB_DeviceControlEndpointStall,
+    kUSB_DeviceControlEndpointUnstall,
+    kUSB_DeviceControlGetDeviceStatus,
+    kUSB_DeviceControlGetEndpointStatus,
+    kUSB_DeviceControlSetDeviceAddress,
+    kUSB_DeviceControlGetSynchFrame,
+    kUSB_DeviceControlResume,
+    kUSB_DeviceControlSuspend,
+    kUSB_DeviceControlSetDefaultStatus,
+    kUSB_DeviceControlGetSpeed,
+    kUSB_DeviceControlSetTestMode,
+} usb_device_control_type_t;
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
 void USB_GetVersion(usb_version_t *version);
 
 #if defined(__cplusplus)

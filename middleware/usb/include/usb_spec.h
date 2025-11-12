@@ -13,6 +13,51 @@
  * Definitions
  ******************************************************************************/
 
+/*! @brief Compiler-specific structure packing macros */
+#if defined(__ICCARM__)
+#define STRUCT_PACKED __packed
+#define STRUCT_UNPACKED
+#elif defined(__GNUC__)
+#define STRUCT_PACKED
+#define STRUCT_UNPACKED __attribute__((__packed__))
+#elif defined(__CC_ARM)
+#define STRUCT_PACKED __packed
+#define STRUCT_UNPACKED
+#else
+#define STRUCT_PACKED
+#define STRUCT_UNPACKED
+#endif
+
+/*! @brief USB Global variable macro */
+#ifndef USB_GLOBAL
+#define USB_GLOBAL
+#endif
+
+/*! @brief USB RAM address alignment macro */
+#ifndef USB_RAM_ADDRESS_ALIGNMENT
+#define USB_RAM_ADDRESS_ALIGNMENT(n) __attribute__((aligned(n)))
+#endif
+
+/*! @brief USB DMA alignment size */
+#define USB_DATA_ALIGN_SIZE (4U)
+#define USB_DATA_ALIGN_SIZE_MULTIPLE(n) (((n) + USB_DATA_ALIGN_SIZE - 1U) & (~(USB_DATA_ALIGN_SIZE - 1U)))
+
+/*! @brief Byte order conversion macros */
+#define USB_SHORT_FROM_LITTLE_ENDIAN(n) ((uint16_t)(n))
+#define USB_LONG_FROM_LITTLE_ENDIAN(n)  ((uint32_t)(n))
+#define USB_SHORT_TO_LITTLE_ENDIAN(n)   ((uint16_t)(n))
+#define USB_LONG_TO_LITTLE_ENDIAN(n)    ((uint32_t)(n))
+
+#define USB_SHORT_FROM_BIG_ENDIAN(n) \
+    ((uint16_t)(((((uint16_t)(n)) & 0x00FFU) << 8U) | ((((uint16_t)(n)) & 0xFF00U) >> 8U)))
+#define USB_LONG_FROM_BIG_ENDIAN(n)                                    \
+    ((uint32_t)(((((uint32_t)(n)) & 0x000000FFU) << 24U) |             \
+                ((((uint32_t)(n)) & 0x0000FF00U) << 8U) |              \
+                ((((uint32_t)(n)) & 0x00FF0000U) >> 8U) |              \
+                ((((uint32_t)(n)) & 0xFF000000U) >> 24U)))
+#define USB_SHORT_TO_BIG_ENDIAN(n) USB_SHORT_FROM_BIG_ENDIAN(n)
+#define USB_LONG_TO_BIG_ENDIAN(n) USB_LONG_FROM_BIG_ENDIAN(n)
+
 /*! @brief USB speed */
 #define USB_SPEED_FULL (0x00U)
 #define USB_SPEED_LOW (0x01U)
