@@ -14,13 +14,13 @@
 #include "usb_device_audio.h"
 #include "usb_audio_config.h"
 #include "usb_device_descriptor.h"
-#include "audio_speaker.h"
+#include "../application/audio_speaker.h"
 
 /*******************************************************************************
  * Local audio format defaults (safe fallback - won't override SDK defines)
  ******************************************************************************/
 #ifndef AUDIO_FORMAT_CHANNELS
-#define AUDIO_FORMAT_CHANNELS 2U     /* 2 channels: stereo */
+#define AUDIO_FORMAT_CHANNELS 8U     /* 8 channels: TDM multi-channel */
 #endif
 
 #ifndef AUDIO_FORMAT_SIZE
@@ -33,6 +33,11 @@
 
 #ifndef AUDIO_SAMPLING_RATE_HZ
 #define AUDIO_SAMPLING_RATE_HZ 48000U /* 48 kHz */
+#endif
+
+/* Define AUDIO_SAMPLING_RATE_KHZ if not already defined by header */
+#ifndef AUDIO_SAMPLING_RATE_KHZ
+#define AUDIO_SAMPLING_RATE_KHZ (AUDIO_SAMPLING_RATE_HZ / 1000U) /* 48 kHz = 48 samples per ms */
 #endif
 
 /* samples per 1 ms USB frame */

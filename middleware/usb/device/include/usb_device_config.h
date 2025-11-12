@@ -12,7 +12,11 @@
 /* Choose controller type: ensure matches the controller files you copied */
 #define USB_DEVICE_CONFIG_KHCI      0
 #define USB_DEVICE_CONFIG_EHCI      0
-#define USB_DEVICE_CONFIG_IP3511HS  1   /* set to 1 if using ip3511hs controller */
+#define USB_DEVICE_CONFIG_LPCIP3511FS 0
+#define USB_DEVICE_CONFIG_LPCIP3511HS 1   /* RT1176 uses IP3511HS controller */
+
+/* Controller ID for RT1176 */
+#define CONTROLLER_ID kUSB_ControllerLpcIp3511Hs0
 
 /* Enable Device and Classes */
 #define USB_DEVICE_CONFIG_ENABLE    1
