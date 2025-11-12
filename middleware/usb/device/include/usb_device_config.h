@@ -15,23 +15,6 @@
 #define USB_DEVICE_CONFIG_LPCIP3511FS 0
 #define USB_DEVICE_CONFIG_LPCIP3511HS 1   /* RT1176 uses IP3511HS controller */
 
-/* Controller ID for RT1176 */
-#define CONTROLLER_ID kUSB_ControllerLpcIp3511Hs0
-
-/* Enable Device and Classes */
-#define USB_DEVICE_CONFIG_ENABLE    1
-#define USB_DEVICE_CONFIG_AUDIO     1   /* enable Audio class support */
-
-/* Number of supported interfaces and endpoints (tune for your descriptors) */
-#define USB_DEVICE_CONFIG_MAX_INTERFACE  4
-#define USB_DEVICE_CONFIG_MAX_ENDPOINT   4
-
-/* Optional: change debug logs */
-#define USB_DEVICE_CONFIG_LOGGING      1
-
-#endif /* _USB_DEVICE_CONFIG_H_ */
-
-
 /*! @brief Device instance count, the sum of KHCI and EHCI instance counts*/
 #define USB_DEVICE_CONFIG_NUM \
     (USB_DEVICE_CONFIG_KHCI + USB_DEVICE_CONFIG_EHCI + USB_DEVICE_CONFIG_LPCIP3511FS + USB_DEVICE_CONFIG_LPCIP3511HS)
@@ -171,5 +154,10 @@
 #define USB_DEVICE_CONFIG_RETURN_VALUE_CHECK (0U)
 
 /* @} */
+
+/* Controller ID for RT1176 - defined after usb.h types are available */
+#ifndef CONTROLLER_ID
+#define CONTROLLER_ID kUSB_ControllerLpcIp3511Hs0
+#endif
 
 #endif /* _USB_DEVICE_CONFIG_H_ */

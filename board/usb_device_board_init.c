@@ -8,6 +8,7 @@
 #include "fsl_common.h"
 #include "fsl_clock.h"
 #include "board.h"
+#include "usb.h"
 #include "usb_device_config.h"
 
 /*******************************************************************************
@@ -17,8 +18,6 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* Externdeclare of USB device handle from application layer */
-extern usb_device_handle g_UsbDeviceAudioHandle;
 
 /*******************************************************************************
  * Code
@@ -49,8 +48,10 @@ void USB_DeviceIsrEnable(void)
     uint8_t irqNumber;
 
 #if defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)
-    uint8_t usbDeviceIP3511Irq[] = USBHSD_IRQS;
-    irqNumber                    = usbDeviceIP3511Irq[CONTROLLER_ID - kUSB_ControllerLpcIp3511Hs0];
+    /* RT1176 uses USBHS (not USBHSD). Use USB1_IRQn directly */
+    irqNumber = USB1_IRQn;
+#else
+    #error "Unsupported USB controller configuration"
 #endif
 
     /* Install USB device interrupt handler */
