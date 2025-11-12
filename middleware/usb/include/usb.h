@@ -162,31 +162,6 @@ typedef struct _usb_device_struct
     uint8_t *setupBuffer;               /*!< Setup packet buffer */
 } usb_device_struct_t;
 
-/*******************************************************************************
- * API
- ******************************************************************************/
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-/*!
- * @brief Gets the USB stack version.
- *
- * @param version Pointer to a version structure.
- */
-void USB_GetVersion(usb_version_t *version);
-
-#if defined(__cplusplus)
-}
-#endif
-
-/*! @}*/
-
-#endif /* __USB_H__ */
-
-/*! @brief USB Device Control Type */
-
 /*! @brief USB Device Control Type */
 typedef enum _usb_device_control_type
 {
@@ -207,10 +182,19 @@ typedef enum _usb_device_control_type
     kUSB_DeviceControlSetTestMode,
 } usb_device_control_type_t;
 
+/*******************************************************************************
+ * API
+ ******************************************************************************/
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
+/*!
+ * @brief Gets the USB stack version.
+ *
+ * @param version Pointer to a version structure.
+ */
 void USB_GetVersion(usb_version_t *version);
 
 #if defined(__cplusplus)
