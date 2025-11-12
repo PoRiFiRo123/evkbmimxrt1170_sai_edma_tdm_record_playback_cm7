@@ -1,0 +1,10 @@
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:44:10:HAL_CODEC_CS42448_Init	32	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:72:10:HAL_CODEC_CS42448_Deinit	16	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:88:10:HAL_CODEC_CS42448_SetFormat	24	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:104:10:HAL_CODEC_CS42448_SetVolume	40	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:157:10:HAL_CODEC_CS42448_SetMute	32	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:189:10:HAL_CODEC_CS42448_SetPower	24	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:202:10:HAL_CODEC_CS42448_SetRecord	16	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:218:10:HAL_CODEC_CS42448_SetRecordChannel	24	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:231:10:HAL_CODEC_CS42448_SetPlay	16	static
+../codec/port/cs42448/fsl_codec_cs42448_adapter.c:246:10:HAL_CODEC_CS42448_ModuleControl	24	static

@@ -1,0 +1,13 @@
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2071:24:CLOCK_GetRootClockMux	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2112:24:CLOCK_GetRootClockDiv	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2157:20:CLOCK_SetRootClock	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2240:24:CLOCK_GetRootClockFreq	32	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2379:20:CLOCK_OSC_EnableOsc48M	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2411:20:CLOCK_OSC_EnableOsc48MDiv2	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2493:20:CLOCK_OSC_GateOscRc400M	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_iomuxc.h:1685:20:IOMUXC_SetSaiMClkClockSource	24	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_iomuxc.h:1755:20:IOMUXC_MQSConfig	24	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_dcdc.h:629:20:DCDC_SetVDD1P0BuckModeTargetVoltage	16	static
+../board/clock_config.c:45:6:BOARD_InitBootClocks	8	static
+../board/clock_config.c:280:6:BOARD_BootClockRUN	16	static
+../board/clock_config.c:1095:6:BOARD_BootClockRUN_800M	16	static

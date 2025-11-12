@@ -1,0 +1,12 @@
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\CMSIS/core_cm7.h:1911:22:__NVIC_EnableIRQ	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2053:20:CLOCK_SetRootClockMux	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_clock.h:2094:20:CLOCK_SetRootClockDiv	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_common_arm.h:570:24:EnableIRQ	24	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_dmamux.h:75:20:DMAMUX_EnableChannel	16	static
+D:\Onedrive\OneDrive - Tessolve Semiconductor Private Limited\Documents\MCUXpressoIDE_11.9.0_2144\workspace\evkbmimxrt1170_sai_edma_tdm_record_playback_cm7\drivers/fsl_dmamux.h:110:20:DMAMUX_SetSource	24	static
+../source/sai_edma_tdm_record_playback.c:126:6:BOARD_EnableSaiMclkOutput	16	static
+../source/sai_edma_tdm_record_playback.c:139:6:BORAD_CodecReset	16	static
+../source/sai_edma_tdm_record_playback.c:150:13:rx_callback	24	static
+../source/sai_edma_tdm_record_playback.c:162:13:tx_callback	24	static
+../source/sai_edma_tdm_record_playback.c:177:5:main	64	static
+../source/sai_edma_tdm_record_playback.c:275:13:DEMO_InitCodec	8	static
