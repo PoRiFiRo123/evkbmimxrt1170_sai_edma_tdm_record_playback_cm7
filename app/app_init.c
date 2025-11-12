@@ -12,6 +12,7 @@
 
 #include "app_config.h"
 #include "audio_bridge.h"
+#include "usb_device_board_init.h"
 #include <stdint.h>
 #include <stdio.h>
 
@@ -46,6 +47,9 @@ void APP_Init(void)
        and starts DMA in circular mode. Ensure the function name here matches your example. */
     sai_edma_tdm_record_playback_init();
 
+    /* Initialize USB PHY, clocks, and controller */
+    BOARD_USB_DeviceInit();
+
     /* Initialize USB device stack and UAC2 device.
        The function should create USB class handles and register callbacks (USB_DeviceAudioCallback).
        You must provide/copy USB Device core + Audio class code into middleware/usb_device. */
@@ -54,6 +58,6 @@ void APP_Init(void)
     /* At this point:
        - SAI EDMA should be receiving/transmitting into example DMA buffers,
        - USB device should be ready to enumerate.
-       The bridge code (sai_dma_if.c / usb_audio_if.c) will connect these two data flows.
+       The bridge code connects SAI <-> USB data flows via ring buffers.
     */
 }

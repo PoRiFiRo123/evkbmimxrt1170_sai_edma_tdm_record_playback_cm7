@@ -124,10 +124,12 @@ Specification, Revision 2.0 chapter 9.6.6*/
 #elif defined(USB_AUDIO_CHANNEL3_1) && (USB_AUDIO_CHANNEL3_1 > 0U)
 #define AUDIO_FORMAT_CHANNELS (0x04)
 #else
-#define AUDIO_FORMAT_CHANNELS (0x02)
+/* Updated for 8-channel TDM audio from external DSP */
+#define AUDIO_FORMAT_CHANNELS (0x08)
 #endif
-#define AUDIO_FORMAT_BITS (16)
-#define AUDIO_FORMAT_SIZE (0x02)
+/* 24-bit audio in 32-bit slots (4 bytes per sample) */
+#define AUDIO_FORMAT_BITS (24)
+#define AUDIO_FORMAT_SIZE (0x04)
 
 /* transfer length during 1 ms */
 #define AUDIO_OUT_TRANSFER_LENGTH_ONE_FRAME (AUDIO_SAMPLING_RATE_KHZ * AUDIO_FORMAT_CHANNELS * AUDIO_FORMAT_SIZE)

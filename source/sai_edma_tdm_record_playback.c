@@ -15,6 +15,7 @@
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_cs42448.h"
+#include "audio_bridge.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -155,6 +156,10 @@ static void rx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
     }
     else
     {
+        /* Push received SAI audio data to the bridge for USB IN transmission */
+        uint8_t *rxBuffer = Buffer + ((rx_index > 0) ? (rx_index - 1) : (BUFFER_NUMBER - 1)) * BUFFER_SIZE;
+        audio_bridge_push_sai_rx(rxBuffer, BUFFER_SIZE);
+
         emptyBlock--;
     }
 }
@@ -167,24 +172,37 @@ static void tx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
     }
     else
     {
+        /* TX buffer was sent - prepare next buffer from USB data via bridge */
+        uint8_t *nextTxBuffer = Buffer + tx_index * BUFFER_SIZE;
+        size_t bytesRead = audio_bridge_pop_for_sai_tx(nextTxBuffer, BUFFER_SIZE);
+
+        /* If no data available from USB, fill with silence */
+        if (bytesRead < BUFFER_SIZE)
+        {
+            for (size_t i = bytesRead; i < BUFFER_SIZE; i++)
+            {
+                nextTxBuffer[i] = 0;
+            }
+        }
+
         emptyBlock++;
     }
 }
 
 /*!
- * @brief Main function
+ * @brief SAI EDMA TDM initialization function
+ *
+ * This function initializes the SAI peripheral in TDM mode with EDMA transfers.
+ * It is called by the application initialization in app_init.c.
  */
-int main(void)
+void sai_edma_tdm_record_playback_init(void)
 {
     sai_transfer_t xfer;
     edma_config_t dmaConfig = {0};
     sai_transceiver_t saiConfig;
 
-    BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
-    BOARD_InitDebugConsole();
-    EnableIRQ(GPIO13_Combined_0_31_IRQn);
+    /* Note: Board-level initialization (MPU, pins, clocks, console) is done in app/main.c */
+    /* This function only initializes SAI-specific components */
 
     CLOCK_InitAudioPll(&audioPllConfig);
 
@@ -241,35 +259,26 @@ int main(void)
     /* CS42888 initialization */
     DEMO_InitCodec();
 
-    while (1)
+    /* Prime initial RX and TX transfers - callbacks will handle continuous operation */
+    for (uint32_t i = 0; i < BUFFER_NUMBER; i++)
     {
-        if (emptyBlock > 0)
+        xfer.data     = Buffer + i * BUFFER_SIZE;
+        xfer.dataSize = BUFFER_SIZE;
+
+        /* Start RX transfer */
+        if (kStatus_Success == SAI_TransferReceiveEDMA(DEMO_SAI, &rxHandle, &xfer))
         {
-            xfer.data     = Buffer + rx_index * BUFFER_SIZE;
-            xfer.dataSize = BUFFER_SIZE;
-            if (kStatus_Success == SAI_TransferReceiveEDMA(DEMO_SAI, &rxHandle, &xfer))
-            {
-                rx_index++;
-            }
-            if (rx_index == BUFFER_NUMBER)
-            {
-                rx_index = 0U;
-            }
-        }
-        if (emptyBlock < BUFFER_NUMBER)
-        {
-            xfer.data     = Buffer + tx_index * BUFFER_SIZE;
-            xfer.dataSize = BUFFER_SIZE;
-            if (kStatus_Success == SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer))
-            {
-                tx_index++;
-            }
-            if (tx_index == BUFFER_NUMBER)
-            {
-                tx_index = 0U;
-            }
+            rx_index++;
+            emptyBlock--;
         }
     }
+
+    /* Reset indices for TX */
+    rx_index = 0U;
+
+    PRINTF("SAI EDMA TDM initialized - ready for audio streaming\r\n");
+
+    /* Initialization complete - callbacks will handle ongoing transfers */
 }
 
 static void DEMO_InitCodec(void)

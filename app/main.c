@@ -40,8 +40,14 @@ int main(void)
     /* Basic board and debug init */
     BOARD_ConfigMPU();            /* optional; some SDKs call this in startup */
     BOARD_InitBootPins();
-    BOARD_InitBootClocks();
+    BOARD_BootClockRUN();         /* Use BootClockRUN instead of InitBootClocks */
     BOARD_InitDebugConsole();
+
+    PRINTF("\r\n");
+    PRINTF("========================================\r\n");
+    PRINTF("RT1176 SAI to USB Audio Bridge\r\n");
+    PRINTF("8-channel, 48kHz, 24-bit audio\r\n");
+    PRINTF("========================================\r\n");
 
     /* Application-level init (SAI edma, USB stack, audio bridge, tasks) */
     APP_Init();
