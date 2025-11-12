@@ -8,7 +8,6 @@
 #include "fsl_common.h"
 #include "fsl_clock.h"
 #include "board.h"
-#include "usb.h"
 #include "usb_device_config.h"
 
 /*******************************************************************************
@@ -35,6 +34,9 @@ void USB_DeviceClockInit(void)
     /* Enable USB HS clock */
     CLOCK_EnableUsbhs0PhyPllClock(kCLOCK_Usbphy480M, 480000000U);
     CLOCK_EnableUsbhs0Clock(kCLOCK_Usb480M, 480000000U);
+
+    /* Note: USB PHY initialization is typically done by the ROM bootloader on RT1176.
+     * If additional PHY configuration is needed, it should be added here. */
 }
 
 /*!
