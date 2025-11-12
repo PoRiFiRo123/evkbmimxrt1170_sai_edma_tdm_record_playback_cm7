@@ -48,8 +48,8 @@ void USB_DeviceIsrEnable(void)
     uint8_t irqNumber;
 
 #if defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)
-    /* RT1176 uses USBHS (not USBHSD). Use USB1_IRQn directly */
-    irqNumber = USB1_IRQn;
+    /* RT1176 uses USB OTG1 controller (IP3511HS) */
+    irqNumber = USB_OTG1_IRQn;
 #else
     #error "Unsupported USB controller configuration"
 #endif
