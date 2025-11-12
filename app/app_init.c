@@ -12,7 +12,7 @@
 
 #include "app_config.h"
 #include "audio_bridge.h"
-#include "usb_device_board_init.h"
+/* #include "usb_device_board_init.h" */ /* TODO: Uncomment when USB SDK added */
 #include <stdint.h>
 #include <stdio.h>
 
@@ -23,7 +23,7 @@ extern void sai_edma_tdm_record_playback_init(void);
 
 /* USB device application init (from SDK USB audio example or your added USB stack).
    Replace with the actual init function from the SDK example. */
-extern void USB_DeviceApplicationInit(void);
+/* extern void USB_DeviceApplicationInit(void); */ /* TODO: Uncomment when USB SDK added */
 
 /* If you use board-specific audio PLL init routines, declare here */
 extern void BOARD_AudioPllInit(void); /* optional: set up audio PLL if required */
@@ -47,13 +47,11 @@ void APP_Init(void)
        and starts DMA in circular mode. Ensure the function name here matches your example. */
     sai_edma_tdm_record_playback_init();
 
-    /* Initialize USB PHY, clocks, and controller */
-    BOARD_USB_DeviceInit();
-
-    /* Initialize USB device stack and UAC2 device.
-       The function should create USB class handles and register callbacks (USB_DeviceAudioCallback).
-       You must provide/copy USB Device core + Audio class code into middleware/usb_device. */
-    USB_DeviceApplicationInit();
+    /* TODO: USB initialization currently disabled - requires NXP USB SDK middleware
+     * Uncomment these after copying USB middleware from NXP SDK:
+     * BOARD_USB_DeviceInit();
+     * USB_DeviceApplicationInit();
+     */
 
     /* At this point:
        - SAI EDMA should be receiving/transmitting into example DMA buffers,
