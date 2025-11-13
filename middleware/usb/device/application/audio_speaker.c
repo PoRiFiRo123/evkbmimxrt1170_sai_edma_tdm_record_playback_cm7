@@ -512,3 +512,11 @@ void USB_DeviceApplicationInit(void)
     PRINTF("Waiting for USB enumeration...\r\n");
     PRINTF("Connect USB cable to see device on your laptop\r\n");
 }
+
+/*!
+ * @brief USB OTG1 interrupt handler for RT1176.
+ */
+void USB_OTG1_IRQHandler(void)
+{
+    USB_DeviceLpcIp3511IsrFunction(s_audioSpeaker.deviceHandle);
+}

@@ -33,8 +33,8 @@ void APP_Init(void)
     USB_DeviceApplicationInit();
 
     /* At this point:
-       - SAI EDMA should be receiving/transmitting audio data
-       - USB device should be ready to enumerate
-       The bridge code connects SAI <-> USB data flows via ring buffers.
+       - SAI EDMA is receiving/transmitting audio data via EDMA
+       - Audio bridge ring buffers are ready
+       - USB device will enumerate when cable is plugged in
     */
 }
