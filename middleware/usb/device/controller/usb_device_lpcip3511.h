@@ -8,6 +8,7 @@
 
 #include "usb.h"
 #include "usb_device_config.h"
+#include "usb_device.h"
 #include "usb_device_dci.h"
 
 /*******************************************************************************

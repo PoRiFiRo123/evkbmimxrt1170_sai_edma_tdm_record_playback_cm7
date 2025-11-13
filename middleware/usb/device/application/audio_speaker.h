@@ -18,6 +18,11 @@
  * Definitions
  ******************************************************************************/
 
+/* Controller ID for RT1176 - must be defined after usb.h is included */
+#ifndef CONTROLLER_ID
+#define CONTROLLER_ID kUSB_ControllerLpcIp3511Hs0
+#endif
+
 /* Audio speaker device structure */
 typedef struct _usb_audio_speaker_struct
 {

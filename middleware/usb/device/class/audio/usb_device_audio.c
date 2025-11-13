@@ -6,11 +6,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-void audio_bridge_init(void);
-void audio_bridge_push_usb_out(const uint8_t *data, size_t length); /* host->device (OUT) */
-size_t audio_bridge_pop_for_usb(uint8_t *dest, size_t max_len);     /* device->host (IN) */
-
-
+#include <stdint.h>
+#include <stddef.h>
 #include "usb_device_config.h"
 #include "usb.h"
 #include "usb_device.h"
@@ -409,4 +406,32 @@ usb_status_t USB_DeviceAudioStreamEndpointsInit(usb_device_audio_struct_t *audio
 
         if ((USB_ENDPOINT_ISOCHRONOUS == (epInitStruct.transferType & USB_DESCRIPTOR_ENDPOINT_ATTRIBUTE_TYPE_MASK)) &&
             (USB_IN == ((epInitStruct.endpointAddress & USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_MASK) >>
-// Note: original file continues; rest of functions remain unchanged
+                        USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_SHIFT)))
+        {
+            epCallback.callbackFn    = USB_DeviceAudioIsochronousIn;
+        }
+        else if ((USB_ENDPOINT_ISOCHRONOUS ==
+                  (epInitStruct.transferType & USB_DESCRIPTOR_ENDPOINT_ATTRIBUTE_TYPE_MASK)) &&
+                 (USB_OUT == ((epInitStruct.endpointAddress & USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_MASK) >>
+                              USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_SHIFT)))
+        {
+            epCallback.callbackFn    = USB_DeviceAudioIsochronousOut;
+        }
+        else if ((USB_ENDPOINT_INTERRUPT ==
+                  (epInitStruct.transferType & USB_DESCRIPTOR_ENDPOINT_ATTRIBUTE_TYPE_MASK)) &&
+                 (USB_IN == ((epInitStruct.endpointAddress & USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_MASK) >>
+                             USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_SHIFT)))
+        {
+            epCallback.callbackFn    = USB_DeviceAudioInterruptIn;
+        }
+        else
+        {
+        }
+        epCallback.callbackParam = audioHandle;
+
+        status = USB_DeviceInitEndpoint(audioHandle->handle, &epInitStruct, &epCallback);
+    }
+    return status;
+}
+
+#endif /* USB_DEVICE_CONFIG_AUDIO */

@@ -67,6 +67,20 @@ static uint8_t s_audioFeedbackBuffer[4] = {0x00, 0x00, 0xC0, 0x00}; /* 48.000 kH
 /* External references */
 extern usb_device_class_struct_t g_UsbDeviceAudioClass;
 
+/* USB class configuration */
+static usb_device_class_config_struct_t s_audioConfig = {
+    USB_DeviceAudioCallback, /* Audio class callback */
+    (class_handle_t)NULL,    /* classHandle - filled by USB_DeviceClassInit */
+    &g_UsbDeviceAudioClass,  /* classInformation */
+};
+
+/* USB device class configuration list */
+static usb_device_class_config_list_struct_t s_audioConfigList = {
+    &s_audioConfig,      /* Array of class configs */
+    USB_DeviceCallback,  /* Device callback */
+    1U,                  /* Number of classes */
+};
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -350,11 +364,8 @@ usb_status_t USB_DeviceAudioCallback(class_handle_t handle, uint32_t event, void
             break;
 
         default:
-            if ((event > kUSB_DeviceAudioEventRecvResponse) && (event < kUSB_DeviceAudioEventControlSendResponse))
-            {
-                /* Handle audio class specific requests */
-                error = USB_DeviceAudioSpeakerRequest(handle, event, param);
-            }
+            /* Handle audio class specific requests */
+            error = USB_DeviceAudioSpeakerRequest(handle, event, param);
             break;
     }
 
@@ -486,16 +497,16 @@ void USB_DeviceApplicationInit(void)
     /* Reset audio status */
     USB_DeviceAudioSpeakerStatusReset();
 
-    /* Initialize USB device */
-    error = USB_DeviceClassInit(CONTROLLER_ID, &g_UsbDeviceAudioClass, &s_audioSpeaker.deviceHandle);
+    /* Initialize USB device with audio class */
+    error = USB_DeviceClassInit(CONTROLLER_ID, &s_audioConfigList, &s_audioSpeaker.deviceHandle);
     if (error != kStatus_USB_Success)
     {
         PRINTF("USB Device Init failed: error 0x%x\r\n", error);
         return;
     }
 
-    /* Get audio class handle */
-    s_audioSpeaker.audioHandle = g_UsbDeviceAudioClass.classHandle;
+    /* Get audio class handle from config structure (filled by USB_DeviceClassInit) */
+    s_audioSpeaker.audioHandle = s_audioConfig.classHandle;
 
     /* Enable USB device interrupt */
     USB_DeviceIsrEnable();
