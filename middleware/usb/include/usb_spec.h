@@ -39,8 +39,12 @@
 #endif
 
 /*! @brief USB DMA alignment size */
-#define USB_DATA_ALIGN_SIZE (4U)
+#ifndef USB_DATA_ALIGN_SIZE
+#define USB_DATA_ALIGN_SIZE (64U)
+#endif
+#ifndef USB_DATA_ALIGN_SIZE_MULTIPLE
 #define USB_DATA_ALIGN_SIZE_MULTIPLE(n) (((n) + USB_DATA_ALIGN_SIZE - 1U) & (~(USB_DATA_ALIGN_SIZE - 1U)))
+#endif
 
 /*! @brief Byte order conversion macros */
 #define USB_SHORT_FROM_LITTLE_ENDIAN(n) ((uint16_t)(n))

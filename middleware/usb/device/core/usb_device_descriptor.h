@@ -11,9 +11,39 @@
 
 #include "usb_audio_config.h"
 #include "usb_device_audio.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+/* Helper macros */
+#ifndef TSAMFREQ2BYTES
+#define TSAMFREQ2BYTES(x) ((uint8_t)((x)&0xFF)), ((uint8_t)(((x) >> 8) & 0xFF)), ((uint8_t)(((x) >> 16) & 0xFF))
+#endif
+
+#ifndef USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS
+#define USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(addr, value) \
+    do { \
+        (addr)[0] = (uint8_t)((value) & 0xFFU); \
+        (addr)[1] = (uint8_t)(((value) >> 8U) & 0xFFU); \
+    } while (0)
+#endif
+
+/* USB descriptor union */
+typedef union _usb_descriptor_union {
+    struct {
+        uint8_t bLength;
+        uint8_t bDescriptorType;
+    } common;
+    struct {
+        uint8_t bLength;
+        uint8_t bDescriptorType;
+        uint8_t bEndpointAddress;
+        uint8_t bmAttributes;
+        uint8_t wMaxPacketSize[2];
+        uint8_t bInterval;
+    } endpoint;
+} usb_descriptor_union_t;
 
 /* @TEST_ANCHOR */
 
@@ -124,10 +154,17 @@ Specification, Revision 2.0 chapter 9.6.6*/
 #elif defined(USB_AUDIO_CHANNEL3_1) && (USB_AUDIO_CHANNEL3_1 > 0U)
 #define AUDIO_FORMAT_CHANNELS (0x04)
 #else
-#define AUDIO_FORMAT_CHANNELS (0x02)
+/* 8-channel TDM audio from SAI */
+#define AUDIO_FORMAT_CHANNELS (0x08)
 #endif
-#define AUDIO_FORMAT_BITS (16)
-#define AUDIO_FORMAT_SIZE (0x02)
+/* 24-bit audio in 32-bit slots (4 bytes per sample) */
+#define AUDIO_FORMAT_BITS (24)
+#define AUDIO_FORMAT_SIZE (0x04)
+
+/* Audio sampling rate: 48 kHz */
+#ifndef AUDIO_SAMPLING_RATE_KHZ
+#define AUDIO_SAMPLING_RATE_KHZ (48U)
+#endif
 
 /* transfer length during 1 ms */
 #define AUDIO_OUT_TRANSFER_LENGTH_ONE_FRAME (AUDIO_SAMPLING_RATE_KHZ * AUDIO_FORMAT_CHANNELS * AUDIO_FORMAT_SIZE)
