@@ -88,6 +88,11 @@
 #define USB_DEVICE_CONFIG_ROOT2_TEST (1U)
 #endif
 
+/*! @brief Whether device is self power. 1U supported, 0U not supported */
+#ifndef USB_DEVICE_CONFIG_SELF_POWER
+#define USB_DEVICE_CONFIG_SELF_POWER (1U)
+#endif
+
 /*! @brief Whether device compliance test is enabled. If the macro is enabled,
     the test mode and CV test macroes will be set.*/
 #ifndef USB_DEVICE_CONFIG_COMPLIANCE_TEST

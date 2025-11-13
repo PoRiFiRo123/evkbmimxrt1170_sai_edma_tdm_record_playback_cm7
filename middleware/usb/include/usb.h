@@ -151,37 +151,6 @@ typedef struct _usb_language_list
     uint8_t languageCount;       /*!< Language count */
 } usb_language_list_t;
 
-/*! @brief USB Device Struct */
-typedef struct _usb_device_struct
-{
-    usb_device_handle handle;           /*!< Device handle */
-    usb_device_handle controllerHandle; /*!< Controller handle */
-    uint8_t controllerId;               /*!< Controller ID */
-    uint8_t deviceAddress;              /*!< Device address */
-    uint8_t state;                      /*!< Device state */
-    uint8_t *setupBuffer;               /*!< Setup packet buffer */
-} usb_device_struct_t;
-
-/*! @brief USB Device Control Type */
-typedef enum _usb_device_control_type
-{
-    kUSB_DeviceControlRun = 0U,
-    kUSB_DeviceControlStop,
-    kUSB_DeviceControlEndpointInit,
-    kUSB_DeviceControlEndpointDeinit,
-    kUSB_DeviceControlEndpointStall,
-    kUSB_DeviceControlEndpointUnstall,
-    kUSB_DeviceControlGetDeviceStatus,
-    kUSB_DeviceControlGetEndpointStatus,
-    kUSB_DeviceControlSetDeviceAddress,
-    kUSB_DeviceControlGetSynchFrame,
-    kUSB_DeviceControlResume,
-    kUSB_DeviceControlSuspend,
-    kUSB_DeviceControlSetDefaultStatus,
-    kUSB_DeviceControlGetSpeed,
-    kUSB_DeviceControlSetTestMode,
-} usb_device_control_type_t;
-
 /*******************************************************************************
  * API
  ******************************************************************************/
