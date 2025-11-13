@@ -1073,8 +1073,8 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
                      USB_OUT))
                 {
                     descriptorHead->endpoint.bInterval = HS_ISO_OUT_ENDP_INTERVAL;
-                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS((HS_ISO_OUT_ENDP_PACKET_SIZE),
-                                                       descriptorHead->endpoint.wMaxPacketSize);
+                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(descriptorHead->endpoint.wMaxPacketSize,
+                                                       (HS_ISO_OUT_ENDP_PACKET_SIZE));
                 }
 #else
                 if ((USB_AUDIO_SPEAKER_STREAM_ENDPOINT ==
@@ -1084,8 +1084,8 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
                 {
                     descriptorHead->endpoint.bInterval = HS_ISO_OUT_ENDP_INTERVAL;
                     USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(
-                        (HS_ISO_OUT_ENDP_PACKET_SIZE + AUDIO_FORMAT_CHANNELS * AUDIO_FORMAT_SIZE),
-                        descriptorHead->endpoint.wMaxPacketSize);
+                        descriptorHead->endpoint.wMaxPacketSize,
+                        (HS_ISO_OUT_ENDP_PACKET_SIZE + AUDIO_FORMAT_CHANNELS * AUDIO_FORMAT_SIZE));
                 }
                 else if ((USB_AUDIO_SPEAKER_FEEDBACK_ENDPOINT ==
                           (descriptorHead->endpoint.bEndpointAddress & USB_ENDPOINT_NUMBER_MASK)) &&
@@ -1093,8 +1093,8 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
                            USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_SHIFT) == USB_IN))
                 {
                     descriptorHead->endpoint.bInterval = HS_ISO_FEEDBACK_ENDP_INTERVAL;
-                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(HS_ISO_FEEDBACK_ENDP_PACKET_SIZE,
-                                                       descriptorHead->endpoint.wMaxPacketSize);
+                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(descriptorHead->endpoint.wMaxPacketSize,
+                                                       HS_ISO_FEEDBACK_ENDP_PACKET_SIZE);
                 }
 #endif
                 else
@@ -1110,8 +1110,8 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
                      USB_OUT))
                 {
                     descriptorHead->endpoint.bInterval = FS_ISO_OUT_ENDP_INTERVAL;
-                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS((FS_ISO_OUT_ENDP_PACKET_SIZE),
-                                                       descriptorHead->endpoint.wMaxPacketSize);
+                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(descriptorHead->endpoint.wMaxPacketSize,
+                                                       (FS_ISO_OUT_ENDP_PACKET_SIZE));
                 }
 #else
                 if ((USB_AUDIO_SPEAKER_STREAM_ENDPOINT ==
@@ -1121,8 +1121,8 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
                 {
                     descriptorHead->endpoint.bInterval = FS_ISO_OUT_ENDP_INTERVAL;
                     USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(
-                        (FS_ISO_OUT_ENDP_PACKET_SIZE + AUDIO_FORMAT_CHANNELS * AUDIO_FORMAT_SIZE),
-                        descriptorHead->endpoint.wMaxPacketSize);
+                        descriptorHead->endpoint.wMaxPacketSize,
+                        (FS_ISO_OUT_ENDP_PACKET_SIZE + AUDIO_FORMAT_CHANNELS * AUDIO_FORMAT_SIZE));
                 }
                 else if ((USB_AUDIO_SPEAKER_FEEDBACK_ENDPOINT ==
                           (descriptorHead->endpoint.bEndpointAddress & USB_ENDPOINT_NUMBER_MASK)) &&
@@ -1130,8 +1130,8 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
                            USB_DESCRIPTOR_ENDPOINT_ADDRESS_DIRECTION_SHIFT) == USB_IN))
                 {
                     descriptorHead->endpoint.bInterval = FS_ISO_FEEDBACK_ENDP_INTERVAL;
-                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(FS_ISO_FEEDBACK_ENDP_PACKET_SIZE,
-                                                       descriptorHead->endpoint.wMaxPacketSize);
+                    USB_SHORT_TO_LITTLE_ENDIAN_ADDRESS(descriptorHead->endpoint.wMaxPacketSize,
+                                                       FS_ISO_FEEDBACK_ENDP_PACKET_SIZE);
                 }
 #endif
                 else

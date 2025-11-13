@@ -18,11 +18,21 @@
 
 /*! @brief Memory alignment for USB buffers */
 #define USB_DATA_ALIGN_SIZE (64U)
-#define USB_DATA_ALIGN_SIZE_MULTIPLE (64U)
+/* USB_DATA_ALIGN_SIZE_MULTIPLE is defined as a macro function in usb_spec.h */
 
 /*! @brief USB buffer cache control */
 #ifndef USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE
 #define USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE (1U)
+#endif
+
+/*! @brief Whether device is self powered. 1U supported, 0U not supported */
+#ifndef USB_DEVICE_CONFIG_SELF_POWER
+#define USB_DEVICE_CONFIG_SELF_POWER (1U)
+#endif
+
+/*! @brief Whether device remote wakeup is supported. 1U supported, 0U not supported */
+#ifndef USB_DEVICE_CONFIG_REMOTE_WAKEUP
+#define USB_DEVICE_CONFIG_REMOTE_WAKEUP (0U)
 #endif
 
 /*! @brief USB device control IN/OUT transfer buffer size */
